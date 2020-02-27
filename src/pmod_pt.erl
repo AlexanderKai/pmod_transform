@@ -296,11 +296,11 @@ exprs([E0|Es],St) ->
 exprs([],_St) -> [].
 
 
-expr({map, _Line, _Map, _Elements} = Map, St) ->
+expr({map, _Line, _Map, _Elements} = Map, _St) ->
     Map;
-expr({map, _Line, _Map}=Map, St) ->
+expr({map, _Line, _Map}=Map, _St) ->
     Map;
-expr({map_field_exact, _Line, _Key, _Var}=Map, St) ->
+expr({map_field_exact, _Line, _Key, _Var}=Map, _St) ->
     Map;
 expr({var,_L,_V}=Var,_St) ->
     Var;
