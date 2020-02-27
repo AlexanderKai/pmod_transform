@@ -295,6 +295,13 @@ exprs([E0|Es],St) ->
     [E1|exprs(Es,St)];
 exprs([],_St) -> [].
 
+
+expr({map, _Line, _Map, _Elements} = Map, St) ->
+    Map;
+expr({map, _Line, _Map}=Map, St) ->
+    Map;
+expr({map_field_exact, _Line, _Key, _Var}=Map, St) ->
+    Map;
 expr({var,_L,_V}=Var,_St) ->
     Var;
 expr({integer,_Line,_I}=Integer,_St) -> Integer;
@@ -422,7 +429,9 @@ expr({op,Line,Op,L0,R0},St) ->
 expr({remote,Line,M0,F0},St) ->
     M1 = expr(M0,St),
     F1 = expr(F0,St),
-    {remote,Line,M1,F1}.
+    {remote,Line,M1,F1};
+expr(Expr, _St) ->
+	Expr.
 
 expr_list([E0|Es],St) ->
     E1 = expr(E0,St),
